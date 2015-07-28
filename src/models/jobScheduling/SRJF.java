@@ -1,5 +1,6 @@
 package models.jobScheduling;
 
+import java.io.IOException;
 import java.util.*;
 
 public class SRJF extends JobSchedule
@@ -124,5 +125,24 @@ public class SRJF extends JobSchedule
     public Iterator<RunningProcess> iterator()
     {
         return processList.iterator();
+    }
+
+    public static void main(String[] args) throws IOException
+    {
+        Scanner scr = new Scanner(System.in);
+
+        System.out.print("Enter the number of jobs: ");
+        int n = scr.nextInt();
+
+        Set<Job> jobs = new HashSet<>();
+        System.out.println("Enter the arrival time and burst time of each job");
+        for (int i = 1; i <= n; i++)
+            jobs.add(new Job(i, scr.nextLong(), scr.nextLong(), 1));
+
+        JobSchedule sjf = new SRJF(jobs);
+        System.out.println("Average Turn Around Time: " + sjf.averageTurnAroundTime());
+        System.out.println("Average Waiting Time: " + sjf.averageWaitingTime());
+
+        scr.close();
     }
 }
