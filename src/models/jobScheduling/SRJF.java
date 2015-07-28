@@ -21,8 +21,7 @@ public class SRJF extends JobSchedule
         processTime = totTAT = totWT = totRT = 0;
         int jobCount = jobs.size();
 
-        PriorityQueue<Job> queue = new PriorityQueue<>(Job::compareBurstTime);
-        Set<Long> respondedJobs = new HashSet<>();
+        PriorityQueue<PreemptedJob> queue = new PriorityQueue<>(PreemptedJob::compareRemaingBurstTime);
 
         for (Job job: sortedJobs)
         {
@@ -35,27 +34,24 @@ public class SRJF extends JobSchedule
             long arrivalTime = job.getArrivalTime();
             while (!queue.isEmpty() && processTime < arrivalTime)
             {
-                Job nextJob = queue.poll();
+                PreemptedJob nextJob = queue.poll();
 
-                if (!respondedJobs.contains(nextJob.getId()))
+                if (nextJob.getArrivalTime() == nextJob.getPseudoArrivalTime())
                 {
-                    respondedJobs.add(nextJob.getId());
                     totRT += processTime - nextJob.getArrivalTime();
                     totTAT += nextJob.getBurstTime();
-
-                    nextJob = duplicateJob(nextJob);
                 }
 
-                totWT += processTime - nextJob.getArrivalTime();
-                long burstTime = Math.min(arrivalTime - processTime, nextJob.getBurstTime());
+                totWT += processTime - nextJob.getPseudoArrivalTime();
+                long burstTime = Math.min(arrivalTime - processTime, nextJob.getPseudoBurstTime());
                 processTime += burstTime;
 
                 processList.add(new RunningProcess("P" + nextJob.getId(), burstTime));
 
-                if (burstTime < nextJob.getBurstTime())
+                if (burstTime < nextJob.getPseudoBurstTime())
                 {
-                    nextJob.setArrivalTime(processTime);
-                    nextJob.setBurstTime(nextJob.getBurstTime() - burstTime);
+                    nextJob.setPseudoArrivalTime(processTime);
+                    nextJob.setPseudoBurstTime(nextJob.getPseudoBurstTime() - burstTime);
                     queue.add(nextJob);
                 }
             }
@@ -66,26 +62,23 @@ public class SRJF extends JobSchedule
                 processTime = arrivalTime;
             }
 
-            queue.add(job);
+            queue.add(new PreemptedJob(job));
         }
 
         while (!queue.isEmpty())
         {
-            Job nextJob = queue.poll();
+            PreemptedJob nextJob = queue.poll();
 
-            if (!respondedJobs.contains(nextJob.getId()))
+            if (nextJob.getArrivalTime() == nextJob.getPseudoArrivalTime())
             {
-                respondedJobs.add(nextJob.getId());
                 totRT += processTime - nextJob.getArrivalTime();
                 totTAT += nextJob.getBurstTime();
-
-                nextJob = duplicateJob(nextJob);
             }
 
-            totWT += processTime - nextJob.getArrivalTime();
-            processTime += nextJob.getBurstTime();
+            totWT += processTime - nextJob.getPseudoArrivalTime();
+            processTime += nextJob.getPseudoBurstTime();
 
-            processList.add(new RunningProcess("P" + nextJob.getId(), nextJob.getBurstTime()));
+            processList.add(new RunningProcess("P" + nextJob.getId(), nextJob.getPseudoBurstTime()));
         }
 
         mergeProcess();
@@ -125,13 +118,6 @@ public class SRJF extends JobSchedule
 
         processList.clear();
         processList.addAll(deque);
-    }
-
-    private Job duplicateJob(Job originalJob)
-    {
-        return new Job(
-                originalJob.getId(), originalJob.getArrivalTime(),
-                originalJob.getBurstTime(), originalJob.getPriority());
     }
 
     @Override
