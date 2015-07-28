@@ -1,0 +1,17 @@
+.root {
+}
+
+#job-pane {
+    -fx-padding: 10px;
+    -fx-background-color: #ddd;
+}
+
+#display-pane {
+    -fx-padding: 10px;
+}
+
+#display-button {
+    -fx-background-color: linear-gradient(#4af, #39f);
+    -fx-text-fill: #fff;
+    -fx-font-weight: bold;
+}

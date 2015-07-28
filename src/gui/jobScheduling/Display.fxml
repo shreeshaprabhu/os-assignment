@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:id="root" prefHeight="480.0" prefWidth="640.0" stylesheets="@display.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.jobScheduling.DisplayController">
+    <children>
+        <Canvas fx:id="canvas" height="300.0" width="640.0" />
+        <HBox alignment="TOP_CENTER">
+            <children>
+                <Label text="Performance Parameters">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Label>
+            </children>
+        </HBox>
+        <GridPane id="performance-pane" hgap="10.0" vgap="20.0" VBox.vgrow="ALWAYS">
+            <columnConstraints>
+                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" />
+                <ColumnConstraints hgrow="SOMETIMES" />
+                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" />
+                <ColumnConstraints hgrow="SOMETIMES" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+            </rowConstraints>
+            <children>
+                <Label text="Total Turn Around Time:" />
+                <Label fx:id="ttatLabel" text="units" GridPane.columnIndex="1" />
+                <Label text="Average Turn Around Time:" GridPane.columnIndex="2" />
+                <Label text="Total Waiting Time:" GridPane.rowIndex="1" />
+                <Label fx:id="twtLabel" text="units" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label fx:id="atatLabel" text="units" GridPane.columnIndex="3" />
+                <Label text="Average Waiting Time:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                <Label fx:id="awtLabel" text="units" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                <Label text="Total Response Time:" GridPane.rowIndex="2" />
+                <Label fx:id="trtLabel" text="units" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Label text="Average Response Time:" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                <Label fx:id="artLabel" text="units" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                <Label text="CPU Utilization:" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                <Label fx:id="utilLabel" text="\%" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            </children>
+            <VBox.margin>
+                <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
+            </VBox.margin>
+        </GridPane>
+    </children>
+</VBox>

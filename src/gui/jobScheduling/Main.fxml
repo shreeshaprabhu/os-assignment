@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.input.*?>
+
+<VBox prefHeight="600.0" prefWidth="400.0" stylesheets="@main.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.jobScheduling.MainController">
+    <children>
+        <MenuBar>
+            <menus>
+                <Menu text="_File">
+                    <items>
+                        <MenuItem fx:id="closeMenuItem" text="_Close">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="Q" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                    </items>
+                </Menu>
+                <Menu text="_Edit">
+                    <items>
+                        <MenuItem fx:id="removeJobMenuItem" text="_Remove selected job(s)">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="D" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                        <MenuItem fx:id="clearJobMenuItem" text="_Clear all jobs">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="D" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                    </items>
+                </Menu>
+                <Menu text="_Help">
+                    <items>
+                        <MenuItem onAction="#showAbout" text="_About" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <TableView fx:id="jobTableView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="idColumn" text="Job/Process" />
+                <TableColumn fx:id="arrivalTimeColumn" text="Arrival Time" />
+                <TableColumn fx:id="burstTimeColumn" text="Burst Time" />
+                <TableColumn fx:id="priorityColumn" text="Priority" />
+            </columns>
+        </TableView>
+        <VBox id="bottom-box">
+            <children>
+                <GridPane id="job-pane" hgap="20.0" vgap="10.0">
+                    <columnConstraints>
+                        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" />
+                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Label text="Arrival Time:" />
+                        <TextField fx:id="arrivalTimeField" GridPane.columnIndex="1" />
+                        <Label text="Burst Time:" GridPane.rowIndex="1" />
+                        <TextField fx:id="burstTimeField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label text="Priority:" GridPane.rowIndex="2" />
+                        <TextField fx:id="priorityField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Button fx:id="addJobButton" mnemonicParsing="false" text="Add Job/Process" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                    </children>
+                </GridPane>
+                <GridPane id="display-pane" hgap="20.0" vgap="10.0">
+                    <columnConstraints>
+                        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <!-- <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" /> -->
+                    </rowConstraints>
+                    <children>
+                        <Label text="Select the algorithm:" GridPane.rowIndex="0" />
+                        <ChoiceBox fx:id="algorithmChoiceBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        <Button id="display-button" mnemonicParsing="false" onAction="#display" text="Display Gantt Chart" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <!--<Label text="Context Switching Time:" GridPane.rowIndex="1" />
+                        <TextField fx:id="cstField" GridPane.columnIndex="1" GridPane.rowIndex="1" />-->
+                    </children>
+                </GridPane>
+            </children>
+        </VBox>
+    </children>
+</VBox>
