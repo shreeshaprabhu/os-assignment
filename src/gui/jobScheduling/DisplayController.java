@@ -93,6 +93,27 @@ public class DisplayController implements Initializable
             context.setFill(Color.BLACK);
             context.fillText(lastTime + "", lastX, 100.0);
         }
+        colorMap.put("Idle", Color.web("#B8B8B8"));
+
+        // Draw the legend
+        int row = 0, col = 0;
+        context.setTextAlign(TextAlignment.LEFT);
+        context.setTextBaseline(VPos.CENTER);
+        for (String name: colorMap.keySet())
+        {
+            context.setFill(colorMap.get(name));
+            context.fillRect(165.0 + col * 70.0, 150.0 + row * 35.0, 20.0, 20.0);
+            context.setFill(Color.BLACK);
+            context.fillText(name, 195.0 + col * 70.0, 160.0 + row * 35.0);
+
+            if (col == 4)
+            {
+                col = 0;
+                row++;
+            }
+            else
+                col++;
+        }
 
         ttatLabel.setText(schedule.totalTurnAroundTime() + " units");
         atatLabel.setText(schedule.averageTurnAroundTime() + " units");
