@@ -192,6 +192,7 @@ public class MainController implements Initializable
             alert.setHeaderText(null);
             alert.setContentText("There are no jobs to display Gantt Chart");
             alert.showAndWait();
+            return;
         }
 
         Set<Job> jobs = new HashSet<>();
