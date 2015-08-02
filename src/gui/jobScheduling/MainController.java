@@ -215,6 +215,35 @@ public class MainController implements Initializable
             case 4:
                 js = new SRJF(jobs);
                 break;
+            case 5:
+                long timeQuantum = 1;
+                TextInputDialog dialog = new TextInputDialog();
+
+                dialog.setTitle("Time Quantum");
+                dialog.setHeaderText(null);
+                dialog.setContentText("Specify time quantum: ");
+
+                Optional<String> result;
+                while ((result = dialog.showAndWait()).isPresent())
+                {
+                    String text = result.get();
+                    try
+                    {
+                        timeQuantum = Long.parseLong(text);
+                        if (timeQuantum < 1)
+                            throw new NumberFormatException();
+                        break;
+                    }
+                    catch (NumberFormatException ex)
+                    {
+                        dialog.setHeaderText("Enter valid time quantum(> 0)");
+                    }
+                }
+                if (!result.isPresent())
+                    return;
+
+                js = new RoundRobin(jobs, timeQuantum);
+                break;
             default:
                 js = null;
         }
