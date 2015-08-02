@@ -11,6 +11,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.*;
 
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
@@ -59,7 +60,7 @@ public class DisplayController implements Initializable
         context.setFill(Color.web("#B8B8B8"));
         context.fillRect(20.0, 50.0, 600.0, 50.0);
 
-        context.setFont(Font.font("System", FontWeight.NORMAL, 12));
+        context.setFont(Font.font("System", FontWeight.NORMAL, 10));
         context.setFill(Color.BLACK);
         context.fillText("0", 20.0, 100.0);
 
@@ -99,6 +100,7 @@ public class DisplayController implements Initializable
         int row = 0, col = 0;
         context.setTextAlign(TextAlignment.LEFT);
         context.setTextBaseline(VPos.CENTER);
+        context.setFont(Font.font("System", FontWeight.NORMAL, 14));
         for (String name: colorMap.keySet())
         {
             context.setFill(colorMap.get(name));
@@ -115,12 +117,14 @@ public class DisplayController implements Initializable
                 col++;
         }
 
+        DecimalFormat decimalFormat = new DecimalFormat("#.##");
+
         ttatLabel.setText(schedule.totalTurnAroundTime() + " units");
-        atatLabel.setText(schedule.averageTurnAroundTime() + " units");
+        atatLabel.setText(decimalFormat.format(schedule.averageTurnAroundTime()) + " units");
         twtLabel.setText(schedule.totalWaitingTime() + " units");
-        awtLabel.setText(schedule.averageWaitingTime() + " units");
+        awtLabel.setText(decimalFormat.format(schedule.averageWaitingTime()) + " units");
         trtLabel.setText(schedule.totalResponseTime() + " units");
-        artLabel.setText(schedule.averageResponseTime() + " units");
-        utilLabel.setText(schedule.utilization() + "%");
+        artLabel.setText(decimalFormat.format(schedule.averageResponseTime()) + " units");
+        utilLabel.setText(decimalFormat.format(schedule.utilization()) + "%");
     }
 }
