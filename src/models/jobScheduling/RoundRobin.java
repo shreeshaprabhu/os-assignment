@@ -1,5 +1,6 @@
 package models.jobScheduling;
 
+import java.io.*;
 import java.util.*;
 
 public class RoundRobin extends JobSchedule
@@ -133,5 +134,34 @@ public class RoundRobin extends JobSchedule
 	public Iterator<RunningProcess> iterator()
 	{
 		return processList.iterator();
+	}
+
+	public static void main(String[] args) throws IOException
+	{
+		Scanner scr = new Scanner(System.in);
+
+		System.out.print("Enter the number of jobs: ");
+		int n = scr.nextInt();
+
+		Set<Job> jobs = new HashSet<>();
+		System.out.println("Enter the arrival time and burst time of each job");
+		for (int i = 1; i <= n; i++)
+			jobs.add(new Job(i, scr.nextLong(), scr.nextLong(), 1));
+
+		System.out.print("Enter the time quantum: ");
+		int t = scr.nextInt();
+
+		JobSchedule rr = new RoundRobin(jobs, t);
+		long time = 0;
+		for (RunningProcess process: rr)
+		{
+			System.out.print(time + " ");
+			System.out.println(process.getName() + " " + process.getBurstTime());
+			time += process.getBurstTime();
+		}
+		System.out.println("Average Turn Around Time: " + rr.averageTurnAroundTime());
+		System.out.println("Average Waiting Time: " + rr.averageWaitingTime());
+
+		scr.close();
 	}
 }
