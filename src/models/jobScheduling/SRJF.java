@@ -139,9 +139,9 @@ public class SRJF extends JobSchedule
         for (int i = 1; i <= n; i++)
             jobs.add(new Job(i, scr.nextLong(), scr.nextLong(), 1));
 
-        JobSchedule sjf = new SRJF(jobs);
-        System.out.println("Average Turn Around Time: " + sjf.averageTurnAroundTime());
-        System.out.println("Average Waiting Time: " + sjf.averageWaitingTime());
+        JobSchedule srjf = new SRJF(jobs);
+        System.out.println("Average Turn Around Time: " + srjf.averageTurnAroundTime());
+        System.out.println("Average Waiting Time: " + srjf.averageWaitingTime());
 
         scr.close();
     }
