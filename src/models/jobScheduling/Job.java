@@ -81,6 +81,12 @@ public class Job
      */
     public static int compareArrivalTime(Job j1, Job j2)
     {
+        if (j1 == null && j2 == null)
+            return 0;
+        if (j1 == null)
+            return -1;
+        if (j2 == null)
+            return 1;
         if (j1.arrivalTime < j2.arrivalTime)
             return -1;
         if (j1.arrivalTime > j2.arrivalTime)
@@ -108,6 +114,12 @@ public class Job
      */
     public static int compareBurstTime(Job j1, Job j2)
     {
+        if (j1 == null && j2 == null)
+            return 0;
+        if (j1 == null)
+            return -1;
+        if (j2 == null)
+            return 1;
         if (j1.burstTime < j2.burstTime)
             return -1;
         if (j1.burstTime > j2.burstTime)
@@ -136,6 +148,12 @@ public class Job
      */
     public static int comparePriority(Job j1, Job j2)
     {
+        if (j1 == null && j2 == null)
+            return 0;
+        if (j1 == null)
+            return -1;
+        if (j2 == null)
+            return 1;
         if (j1.priority < j2.priority)
             return -1;
         if (j1.priority > j2.priority)

@@ -22,7 +22,7 @@ public class SRJF extends JobSchedule
         processTime = totTAT = totWT = totRT = 0;
         int jobCount = jobs.size();
 
-        PriorityQueue<PreemptedJob> queue = new PriorityQueue<>(PreemptedJob::compareRemaingBurstTime);
+        PriorityQueue<PreemptedJob> queue = new PriorityQueue<>(PreemptedJob::compareRemainingBurstTime);
 
         for (Job job: sortedJobs)
         {

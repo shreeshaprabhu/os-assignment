@@ -47,8 +47,14 @@ public class PreemptedJob extends Job
 	 * @param j2 Job 2
 	 * @return the <code>int</code> comparing preempted-job
 	 */
-	public static int compareRemaingBurstTime(PreemptedJob j1, PreemptedJob j2)
+	public static int compareRemainingBurstTime(PreemptedJob j1, PreemptedJob j2)
 	{
+		if (j1 == null && j2 == null)
+			return 0;
+		if (j1 == null)
+			return -1;
+		if (j2 == null)
+			return 1;
 		if (j1.pseudoBurstTime < j2.pseudoBurstTime)
 			return -1;
 		if (j1.pseudoBurstTime > j2.pseudoBurstTime)
