@@ -201,6 +201,7 @@ public class MainController implements Initializable
         int ind = algorithmChoiceBox.getSelectionModel().getSelectedIndex();
 
         JobSchedule js;
+        String title = (String) algorithms.get(ind);
         switch (ind)
         {
             case 0:
@@ -242,10 +243,11 @@ public class MainController implements Initializable
                 if (!result.isPresent())
                     return;
 
+                title += " (Time quantum: " + timeQuantum + ")";
                 js = new RoundRobin(jobs, timeQuantum);
                 break;
             default:
-                js = null;
+                return;
         }
 
         ResourceBundle rb = new ListResourceBundle()
@@ -267,7 +269,7 @@ public class MainController implements Initializable
         Stage stage = new Stage(StageStyle.UTILITY);
         stage.initOwner(jobTableView.getScene().getWindow());
         stage.initModality(Modality.WINDOW_MODAL);
-        stage.setTitle((String)algorithmChoiceBox.getSelectionModel().getSelectedItem());
+        stage.setTitle(title);
         stage.setScene(scene);
         stage.setResizable(false);
         stage.showAndWait();
