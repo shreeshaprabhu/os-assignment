@@ -24,7 +24,7 @@ public class RoundRobin extends JobSchedule
 		processTime = totTAT = totWT = totRT = 0;
 		int jobCount = jobs.size();
 
-		Queue<PreemptedJob> queue = new ArrayDeque<>();
+		Deque<PreemptedJob> queue = new ArrayDeque<>();
 
 		for (Job job: sortedJobs)
 		{
@@ -65,7 +65,15 @@ public class RoundRobin extends JobSchedule
 				processTime = arrivalTime;
 			}
 
-			queue.add(new PreemptedJob(job));
+			PreemptedJob last = queue.peekLast();
+			if (last != null && last.getPseudoArrivalTime() > job.getArrivalTime())
+			{
+				queue.pollLast();
+				queue.add(new PreemptedJob(job));
+				queue.add(last);
+			}
+			else
+				queue.add(new PreemptedJob(job));
 		}
 
 		while (!queue.isEmpty())
